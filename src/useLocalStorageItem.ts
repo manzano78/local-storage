@@ -21,7 +21,7 @@ export function useLocalStorageItem<T>(
 
       const { itemKey } = state
 
-      return { itemKey: itemKey, value: NO_STORED_VALUE }
+      return { itemKey, value: NO_STORED_VALUE }
     })
   })
 

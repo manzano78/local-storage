@@ -1,5 +1,5 @@
 {
-  "name": "@manzano/use-local-storage-item",
+  "name": "@manzano/use-stored-value",
   "version": "1.0.0",
   "main": "index.js",
   "config": {

@@ -1,4 +1,4 @@
-import { NO_STORED_VALUE } from './useLocalStorageItem-constants'
+import { NO_STORED_VALUE } from './useStoredValue-constants'
 import { SetStateAction } from 'react'
 
 export interface LocalStorageItemState<T> {

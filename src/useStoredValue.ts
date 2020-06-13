@@ -1,17 +1,17 @@
 import { SetStateAction, useCallback, useEffect, useState } from 'react'
 import { useFinalCallback } from '@manzano/component-utils'
-import { NO_STORED_VALUE } from './useLocalStorageItem-constants'
+import { NO_STORED_VALUE } from './useStoredValue-constants'
 import {
   LocalStorageItemActions,
   LocalStorageItemState
-} from './useLocalStorageItem-types'
+} from './useStoredValue-types'
 
-export function useLocalStorageItem<T>(
+export function useStoredValue<T>(
   key: string,
   defaultValue: T
 ): [T, LocalStorageItemActions<T>] {
   const [{ itemKey, value }, setState] = useState(() => toInitialState<T>(key))
-  const effectiveValue = toEffectiveValue(value, defaultValue)
+  const finalValue = toFinalValue(value, defaultValue)
 
   const remove = useFinalCallback(() => {
     setState((state) => {
@@ -28,7 +28,7 @@ export function useLocalStorageItem<T>(
   const setValue = useCallback(
     (value: SetStateAction<T>) => {
       setState((state) => {
-        const previousValue = toEffectiveValue(state.value, defaultValue)
+        const previousValue = toFinalValue(state.value, defaultValue)
         const newValue = isFunction(value) ? value(previousValue) : value
 
         if (newValue !== previousValue) {
@@ -81,13 +81,10 @@ export function useLocalStorageItem<T>(
     }
   }, [itemKey, setValue])
 
-  return [effectiveValue, { setValue, remove }]
+  return [finalValue, { setValue, remove }]
 }
 
-function toEffectiveValue<T>(
-  value: T | typeof NO_STORED_VALUE,
-  defaultValue: T
-) {
+function toFinalValue<T>(value: T | typeof NO_STORED_VALUE, defaultValue: T) {
   return value !== NO_STORED_VALUE ? value : defaultValue
 }
 

@@ -1,2 +1,2 @@
-export { useLocalStorageItem } from './useLocalStorageItem'
-export { LocalStorageItemActions } from './useLocalStorageItem-types'
+export { useStoredValue } from './useStoredValue'
+export { LocalStorageItemActions } from './useStoredValue-types'
